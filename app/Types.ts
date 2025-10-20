@@ -1,11 +1,17 @@
 import { ViewStyle, StyleProp, TextStyle } from "react-native";
-export interface MacroData {
+export default interface MacroData {
     calories: number;
     protein: number;
     fat: number;
     carbs: number;
   }
-
+export type EnterMacrosProps ={
+  setCalories: React.Dispatch<React.SetStateAction<string>>, 
+    setProtein: React.Dispatch<React.SetStateAction<string>>, 
+    setCarbs: React.Dispatch<React.SetStateAction<string>>, 
+    setFat: React.Dispatch<React.SetStateAction<string>>, 
+    saveGoal: () => void
+}
 export type MotiProps = {
     size?: number;       // base diameter
     color?: string;      // circle color
@@ -40,9 +46,6 @@ export type HistoryModalProps = {
   
     /** Style for the cancel/close button */
     cancleStyle?: StyleProp<ViewStyle>;
-  
-    /** List of eaten items to display */
-    eaten: EatenEntry[];
   
     /** Function to toggle modal open/close */
     handleHistoryOpen: () => void;

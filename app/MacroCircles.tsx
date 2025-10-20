@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
-import type { MacroData, Ring } from './Types';
-
+import type MacroData from './Types'
+import type {Ring} from './Types'
 
 const Ring = ({
                 label,

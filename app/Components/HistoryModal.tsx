@@ -1,12 +1,12 @@
-import { Modal, View, Text, Pressable, KeyboardAvoidingView, Platform, StyleProp, ViewStyle, TextStyle} from "react-native"
-import type { MacroData, EatenEntry, HistoryModalProps } from "../Types";
+import { Modal, View, Text, Pressable, KeyboardAvoidingView, Platform} from "react-native"
+import type { HistoryModalProps } from "../Types";
+import { useMacros } from "../Providers/MacrosContext";
 
 
-
-export default function HistoryModal({isVisible, backdropStyle, cardStyle, modalTitleStyle, eaten, cancleStyle, handleHistoryOpen}: HistoryModalProps){
+export default function HistoryModal({isVisible, backdropStyle, cardStyle, modalTitleStyle, cancleStyle, handleHistoryOpen}: HistoryModalProps){
+    const {eaten} = useMacros();
     return (
         <>
-        {/* History modal */}
         <Modal visible={isVisible} animationType="fade" transparent onRequestClose={handleHistoryOpen}>
             <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={backdropStyle}>
               <View style={cardStyle}>

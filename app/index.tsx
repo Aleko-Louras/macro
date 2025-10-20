@@ -13,7 +13,7 @@ import HistoryModal from './Components/HistoryModal';
 import EnterMacros from './Components/EnterMacros';
 export default function Home() {
   const router = useRouter()
-  const { startOfDay, goal, remaining, eaten, setDailyGoal } = useMacros();
+  const { setStartOfDay, startOfDay, goal, remaining, eaten, setDailyGoal } = useMacros();
 
   // UI-only state for this screen
   const [historyOpen, setHistoryOpen] = useState(false);
@@ -43,10 +43,10 @@ export default function Home() {
             {remaining && (
               <>
                 <Text style={styles.title}>Macros Remaining Today</Text>
-                <Text>Calories: {Math.round(remaining.calories)}</Text>
-                <Text>Protein : {Math.round(remaining.protein)} g</Text>
-                <Text>Carbs   : {Math.round(remaining.carbs)} g</Text>
-                <Text>Fat     : {Math.round(remaining.fat)} g</Text>
+                <Text style={{textAlign: 'center'}}>Calories : {Math.round(remaining.calories)}</Text>
+                <Text style={{textAlign: 'center'}}>Protein : {Math.round(remaining.protein)} g</Text>
+                <Text style={{textAlign: 'center'}}>Carbs : {Math.round(remaining.carbs)} g</Text>
+                <Text style={{textAlign: 'center'}}>Fat : {Math.round(remaining.fat)} g</Text>
                 <MacroCircles goal={goal} remaining={remaining} />
                 <TouchableOpacity style={styles.secondary} onPress={() => setHistoryOpen(true)}>
                   <Text style={{ fontSize: 18 }}>What I've Eaten Today</Text>
@@ -54,6 +54,7 @@ export default function Home() {
                   <TouchableOpacity onPress={() => router.navigate("./Camera")}style={[styles.primary, { marginTop: 16 }]}>
                     <Text style={{ fontSize: 18 }}>Scan Barcode</Text>
                   </TouchableOpacity>
+                <TouchableOpacity style={styles.adjustMacros} onPress={() => setStartOfDay(true)}><Text>Adjust Macros for the Day</Text></TouchableOpacity>
               </>
             )}
           </SafeAreaView>
@@ -75,4 +76,5 @@ const styles = StyleSheet.create({
   card: { width: 300, backgroundColor: 'white', borderRadius: 12, padding: 20 },
   modalTitle: { fontSize: 20, fontWeight: '600', marginBottom: 10, textAlign: 'center' },
   cancel: { marginTop: 16, alignSelf: 'center', padding: 10, borderRadius: 8, backgroundColor: 'pink' },
+  adjustMacros: {borderRadius: 10, borderWidth: 2, borderColor: 'black', marginTop: 20, padding: 8}
 });

@@ -23,6 +23,6 @@ export default function EnterMacros({setCalories, setProtein, setCarbs, setFat, 
 const styles = StyleSheet.create({
     input: { borderColor: 'black', borderWidth: 1, fontSize: 20, padding: 6, borderRadius: 8, marginTop: 10, width: 200, textAlign: 'center' }, 
     header: { fontSize: 40, textAlign: 'center', marginBottom: 30 }, 
-    centerBox: {backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center', padding: 16,position: 'absolute'}, 
+    centerBox: {backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center', padding: 16, flex: 1}, 
     primary: { borderColor: 'black', borderWidth: 2, backgroundColor: 'pink', borderRadius: 10, paddingVertical: 10, paddingHorizontal: 20, marginTop: 25 },
 })

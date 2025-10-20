@@ -19,6 +19,7 @@ type Ctx = {
 
   // utils
   rehydrate: () => Promise<void>;
+  setStartOfDay: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const MacrosCtx = createContext<Ctx | null>(null);
@@ -136,6 +137,7 @@ export default function MacrosProvider({ children }: { children: React.ReactNode
       setDailyGoal,
       addFood,
       rehydrate,
+      setStartOfDay
     }),
     [startOfDay, goal, remaining, eaten]
   );

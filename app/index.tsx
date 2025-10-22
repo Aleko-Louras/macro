@@ -3,7 +3,7 @@ import 'react-native-reanimated';
 import 'react-native-gesture-handler';
 import React, { useState } from 'react';
 import {
-  View, Text, StyleSheet, TouchableOpacity,
+  View, Text, StyleSheet, TouchableOpacity, Modal, Pressable
 } from 'react-native';
 import { SafeAreaView} from 'react-native-safe-area-context';
 import { useMacros } from '@/app/Providers/MacrosContext';
@@ -13,8 +13,8 @@ import HistoryModal from './Components/HistoryModal';
 import EnterMacros from './Components/EnterMacros';
 export default function Home() {
   const router = useRouter()
-  const { setStartOfDay, startOfDay, goal, remaining, eaten, setDailyGoal } = useMacros();
-
+  const { setStartOfDay, startOfDay, goal, remaining, setDailyGoal } = useMacros();
+  const [changeModalOpen, setChangeModalOpen] = useState(false)
   // UI-only state for this screen
   const [historyOpen, setHistoryOpen] = useState(false);
 
@@ -54,13 +54,24 @@ export default function Home() {
                   <TouchableOpacity onPress={() => router.navigate("./Camera")}style={[styles.primary, { marginTop: 16 }]}>
                     <Text style={{ fontSize: 18 }}>Scan Barcode</Text>
                   </TouchableOpacity>
-                <TouchableOpacity style={styles.adjustMacros} onPress={() => setStartOfDay(true)}><Text>Adjust Macros for the Day</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.adjustMacros} onPress={() =>  setChangeModalOpen(true)}><Text>Reset Macros for the Day</Text></TouchableOpacity>
               </>
             )}
           </SafeAreaView>
           <HistoryModal isVisible={historyOpen} backdropStyle={styles.backdrop} cardStyle={styles.card} modalTitleStyle={styles.modalTitle}
           cancleStyle={styles.cancel} handleHistoryOpen={() => setHistoryOpen(false)}
           />
+          <Modal transparent onRequestClose={ () => setChangeModalOpen(false)}visible={changeModalOpen}>
+            <View style={styles.changeModalBackdrop}>
+            <View style={styles.changeModal}>
+              <Text style={{textAlign:"center", padding: 5}}>Are you sure you want to reset your macros?</Text>
+              <View style={styles.changeButtons}>
+                <Pressable style={{ backgroundColor: 'lightgreen', borderWidth: 1, borderColor: 'black', borderRadius: 4, padding: 4}}onPress={() => {setStartOfDay(true); setChangeModalOpen(false);}}><Text>Yes</Text></Pressable>
+                <Pressable style={{ backgroundColor: 'orange', borderWidth: 1, borderColor: 'black', borderRadius: 4, padding: 4}} onPress={() => setChangeModalOpen(false)}><Text>No</Text></Pressable>
+              </View>
+            </View>
+            </View>
+          </Modal>
         </View>
       )}
     </SafeAreaView>
@@ -76,5 +87,8 @@ const styles = StyleSheet.create({
   card: { width: 300, backgroundColor: 'white', borderRadius: 12, padding: 20 },
   modalTitle: { fontSize: 20, fontWeight: '600', marginBottom: 10, textAlign: 'center' },
   cancel: { marginTop: 16, alignSelf: 'center', padding: 10, borderRadius: 8, backgroundColor: 'pink' },
-  adjustMacros: {borderRadius: 10, borderWidth: 2, borderColor: 'black', marginTop: 20, padding: 8}
+  adjustMacros: {borderRadius: 10, borderWidth: 2, borderColor: 'black', marginTop: 20, padding: 8},
+  changeModal: {width: 300, height: 200, justifyContent: 'center', alignItems: 'center', borderWidth: 2, backgroundColor: 'lightpink', borderRadius: 30, },
+  changeModalBackdrop: {flex: 1, justifyContent: 'center', alignItems: 'center'},
+  changeButtons: {marginTop: 55, flexDirection: 'row', justifyContent: 'space-around', width: 200}
 });

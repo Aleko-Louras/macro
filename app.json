@@ -35,9 +35,9 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/macro_barcode_icon_1024.png",
+          "image": "./assets/images/macro_fullscreen_splash_cleanjar.png",
           "imageWidth": 200,
-          "resizeMode": "contain",
+          "resizeMode": "cover",
           "backgroundColor": "#ffffff",
           "dark": {
             "backgroundColor": "#000000"

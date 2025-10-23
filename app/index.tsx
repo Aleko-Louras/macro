@@ -3,7 +3,7 @@ import 'react-native-reanimated';
 import 'react-native-gesture-handler';
 import React, { useState } from 'react';
 import {
-  View, Text, StyleSheet, TouchableOpacity, Modal, Pressable
+  View, Text, StyleSheet, TouchableOpacity, Modal, Pressable, Alert
 } from 'react-native';
 import { SafeAreaView} from 'react-native-safe-area-context';
 import { useMacros } from '@/app/Providers/MacrosContext';
@@ -25,6 +25,10 @@ export default function Home() {
   const [fat, setFat]           = useState('');
 
   const saveGoal = async () => {
+    if((calories && protein && carbs && fat) === ''){
+      Alert.alert("One or more Macros are empty!", "Please enter all macros.")
+      return
+    }
     await setDailyGoal({
       calories: Number(calories) || 0,
       protein : Number(protein)  || 0,
@@ -61,7 +65,7 @@ export default function Home() {
           <HistoryModal isVisible={historyOpen} backdropStyle={styles.backdrop} cardStyle={styles.card} modalTitleStyle={styles.modalTitle}
           cancleStyle={styles.cancel} handleHistoryOpen={() => setHistoryOpen(false)}
           />
-          <Modal transparent onRequestClose={ () => setChangeModalOpen(false)}visible={changeModalOpen}>
+          <Modal animationType='fade' transparent onRequestClose={ () => setChangeModalOpen(false)}visible={changeModalOpen}>
             <View style={styles.changeModalBackdrop}>
             <View style={styles.changeModal}>
               <Text style={{textAlign:"center", padding: 5}}>Are you sure you want to reset your macros?</Text>

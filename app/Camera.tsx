@@ -30,6 +30,10 @@ export default function CameraScreen() {
   const [multiplier, setMultiplier] = useState(0);
 
   const saveManualMacros = () => {
+    if((mCalories && mProtein && mCarbs && mFat) == ""){
+      Alert.alert("One or more Macros are empty!", "Please enter all macros.")
+      return
+    }
     const m: MacroData = {
       calories: Number(mCalories) || 0,
       protein : Number(mProtein)  || 0,
@@ -138,7 +142,7 @@ export default function CameraScreen() {
             <Text style={{ color: 'white', fontSize: 16 }}>Enter Manually</Text>
           </TouchableOpacity>
 
-          <Modal visible={manualOpen} animationType="slide" transparent onRequestClose={() => setManualOpen(false)}>
+          <Modal visible={manualOpen} animationType="fade" transparent onRequestClose={() => setManualOpen(false)}>
             <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.backdrop}>
               <View style={styles.card}>
                 <Text style={styles.modalTitle}>Manual Macros</Text>

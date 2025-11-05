@@ -32,10 +32,10 @@ export default function MacroCircles({ goal, remaining }: { goal: MacroData | nu
 
   return (
     <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', marginVertical: 20 }}>
-      <Ring label="Cal"   fill={pct(goal.calories, remaining.calories)} color="#ff4081" />
+      <Ring label="Protein"  fill={pct(goal.protein,  remaining.protein)}  color="#2196f3" />
       <Ring label="Carbs" fill={pct(goal.carbs,    remaining.carbs)}    color="#4caf50" />
-      <Ring label="Prot"  fill={pct(goal.protein,  remaining.protein)}  color="#2196f3" />
       <Ring label="Fat"   fill={pct(goal.fat,      remaining.fat)}      color="#ffb300" />
+      <Ring label="Calories"   fill={pct(goal.calories, remaining.calories)} color="#ff4081" />
     </View>
   );
 }

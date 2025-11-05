@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  View, Text, Alert, StyleSheet, TouchableOpacity, Modal, Pressable, TextInput, Platform, Touchable,
+  View, Text, Alert, StyleSheet, TouchableOpacity, Modal, Pressable, TextInput, Platform, Touchable, Keyboard
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { KeyboardAvoidingView } from 'react-native';
@@ -130,9 +130,7 @@ export default function CameraScreen() {
             onBarcodeScanned={scanned || lookupBusy ? undefined : onBarcodeScanned}
           />
           
-          <TouchableOpacity style={styles.homeButton} onPress={() => router.navigate('/')}>
-            <Text style={{ color: 'white', fontSize: 16 }}>Home</Text>
-          </TouchableOpacity>
+          
 
           <View pointerEvents="none" style={styles.scanFrame}>
             <View style={styles.scanFrameInner} />
@@ -142,7 +140,11 @@ export default function CameraScreen() {
             <Text style={{ color: 'white', fontSize: 16 }}>Enter Manually</Text>
           </TouchableOpacity>
 
-          <Modal visible={manualOpen} animationType="fade" transparent onRequestClose={() => setManualOpen(false)}>
+          <TouchableOpacity style={styles.homeButton} onPress={() => router.navigate('/')}>
+            <Text style={{ color: 'black', fontSize: 16 }}>Home</Text>
+          </TouchableOpacity>
+
+          <Modal visible={manualOpen} animationType="fade" onRequestClose={() => setManualOpen(false)}>
             <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.backdrop}>
               <View style={styles.card}>
                 <Text style={styles.modalTitle}>Manual Macros</Text>
@@ -181,7 +183,7 @@ export default function CameraScreen() {
                   placeholderTextColor="gray"
                   keyboardType="numbers-and-punctuation"
                 />
-                <TouchableOpacity style={styles.setServingsButton} onPress={() => multiplyMacros(multiplier)}>
+                <TouchableOpacity style={styles.setServingsButton} onPress={() => {multiplyMacros(multiplier); Keyboard.dismiss()}}>
                   <Text>Set serving</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.addToDayButton} onPress={addToDay}>
@@ -210,7 +212,7 @@ const styles = StyleSheet.create({
   scanFrame: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center' },
   scanFrameInner: { width: 240, height: 240, borderWidth: 3, borderColor: 'pink', borderRadius: 16, backgroundColor: 'transparent' },
 
-  manualButton: { position: 'absolute', bottom: 30, alignSelf: 'center', backgroundColor: '#ff7e7e', paddingHorizontal: 18, paddingVertical: 10, borderRadius: 25, borderColor: 'white', borderWidth: 2 },
+  manualButton: { position: 'absolute', bottom: 200, alignSelf: 'center', backgroundColor: '#ff7e7e', paddingHorizontal: 18, paddingVertical: 10, borderRadius: 25, borderColor: 'white', borderWidth: 2 },
 
   servingInput: { borderColor: 'black', borderWidth: 1, borderRadius: 10, height: 50, width: 90, textAlign: 'center' },
   servingsRow: { flexDirection: 'row', alignItems: 'flex-end', marginTop: 30, flexWrap: 'wrap', justifyContent: 'center' },
@@ -227,5 +229,5 @@ const styles = StyleSheet.create({
   modalInput: { borderColor: '#aaa', borderWidth: 1, borderRadius: 8, padding: 6, marginTop: 10, textAlign: 'center', color: 'black' },
   modalCancel: { marginRight: 8, padding: 10, borderRadius: 8, backgroundColor: 'pink', alignItems: 'center' },
   modalSave: { flex: 1, marginLeft: 8, padding: 10, borderRadius: 8, backgroundColor: '#ff7e7e', alignItems: 'center' },
-  homeButton: {position: 'absolute', top: 80, left: 20, alignSelf: 'center', backgroundColor: '#ff7e7e', paddingHorizontal: 18, paddingVertical: 10, borderRadius: 25, borderColor: 'white', borderWidth: 2 }
+  homeButton: {position: 'absolute', bottom: 80, alignSelf: 'center', backgroundColor: '#96f2b7', paddingHorizontal: 18, paddingVertical: 10, borderRadius: 25, borderColor: 'white', borderWidth: 2 }
 });
